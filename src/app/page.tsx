@@ -1,95 +1,49 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client"; // This is a client component 👈🏽
+import { useEffect, useState } from "react"
+import { currentApi , forecastApi} from "../api/api"
+import { latLongType , CityType } from "@/model/model"
+import { Autocomplete, Grid, TextField } from "@mui/material"
+import jsonCities from '../utils/cities.json'
+
 
 export default function Home() {
+const [latLong , setLatLong]=useState<latLongType>({
+  lat :35.7219,
+  long :51.3347,
+})
+const [currentWeather, setCurrentWeather]=useState<any>([])
+const [forecastWeather, setForecastWeather]=useState<any>([])
+const [isLoading , setIsLoading]=useState<Boolean>(true)
+
+// const cities = JSON.parse(jsonCities)
+
+// useEffect(()=>{
+//   const Func = async()=>{
+//     const current = await currentApi(latLong)
+//     const forecast = await forecastApi(latLong)
+//     setCurrentWeather(current)
+//     setForecastWeather(forecast)
+//   }
+// Func()
+// },[latLong])
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+    <Grid
+    container
+    display={'flex'}
+    justifyContent={'center'}
+    >
+      <Grid
+      item>
+          <Autocomplete
+              disablePortal
+              
+              options={JSON.parse(jsonCities).title}
+              sx={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="Movie" />}
             />
-          </a>
-        </div>
-      </div>
+      </Grid>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </Grid>
   )
 }
