@@ -1,8 +1,8 @@
 "use client"; // This is a client component 👈🏽
 import { useEffect, useState } from "react"
-import { currentApi , forecastApi} from "../api/api"
+import useWeather from "@/hooks/useWeather";
 import { latLongType , CityType } from "@/model/model"
-import { Autocomplete, Grid, TextField } from "@mui/material"
+import { Autocomplete, Grid, TextField, Typography } from "@mui/material"
 import jsonCities from '../utils/cities.json'
 
 
@@ -11,21 +11,18 @@ const [latLong , setLatLong]=useState<latLongType>({
   lat :35.7219,
   long :51.3347,
 })
-const [currentWeather, setCurrentWeather]=useState<any>([])
-const [forecastWeather, setForecastWeather]=useState<any>([])
-const [isLoading , setIsLoading]=useState<Boolean>(true)
+// const [citiesName,setCitiesName] = useState<Array<string>>([])
+// jsonCities.map((item:any)=> setCitiesName(item.title))
 
-// const cities = JSON.parse(jsonCities)
+const {
+  currentWeather,
+  forecastWeather,
+  isLoading
+} = useWeather(latLong)
+console.log(currentWeather)
 
-// useEffect(()=>{
-//   const Func = async()=>{
-//     const current = await currentApi(latLong)
-//     const forecast = await forecastApi(latLong)
-//     setCurrentWeather(current)
-//     setForecastWeather(forecast)
-//   }
-// Func()
-// },[latLong])
+
+
   return (
     <Grid
     container
@@ -36,11 +33,12 @@ const [isLoading , setIsLoading]=useState<Boolean>(true)
       item>
           <Autocomplete
               disablePortal
-              
-              options={JSON.parse(jsonCities).title}
+
+              options={['citiesName']}
               sx={{ width: 300 }}
               renderInput={(params) => <TextField {...params} label="Movie" />}
             />
+            
       </Grid>
 
 
