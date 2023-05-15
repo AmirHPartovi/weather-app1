@@ -1,6 +1,6 @@
 export interface latLongType{
-    lat:Number,
-    long:Number,
+    lat:number,
+    long:number,
 }
 export interface CityType{ 
     id: number,

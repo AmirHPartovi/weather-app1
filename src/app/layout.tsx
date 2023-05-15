@@ -1,7 +1,7 @@
-import '../globals.css'
-import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+import { ThemeProvider } from "@mui/material"
+import theme from "@/theme/theme"
+
 
 export const metadata = {
   title: 'Weather App',
@@ -14,8 +14,24 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="fa" dir='rtl'>
+      <head>
+      <link 
+          rel='preload'
+          href='./public/assets/fonts/Vazirmatn-Regular.ttf'
+          as='font'
+          crossOrigin='anonymous'
+                          
+      ></link>
+      <link 
+          rel='preload'
+          href='./public/assets/fonts/Vazirmatn-Bold.ttf'
+          as='font'
+          crossOrigin='anonymous'
+      ></link>
+      </head>
+       <body>{children}</body>
+      
     </html>
   )
 }
