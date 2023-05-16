@@ -21,6 +21,7 @@ function useWeather ({lat,long}:latLongType){
       },[lat , long])
 
       return{
+        getWeather,
         currentWeather,
         forecastWeather,
         isLoading

@@ -4,6 +4,7 @@ import { createTheme } from "@mui/material/styles";
 // import morabbaBold from '../../public/assets/fonts/Morabba-Bold.woff2'
 // import morabbaBlack from '../../public/assets/fonts/Morabba-Black.woff2'
 
+
 const theme = createTheme({
     direction: 'rtl',
     palette: {
@@ -42,11 +43,11 @@ const theme = createTheme({
         },
     },
     typography:{
-        fontFamily:'Vazirmatn-Regular',
+        fontFamily:'Alibaba',
         fontSize: 16,
         fontWeightLight: 400,
         h3:{
-            fontFamily:'Morabba',
+            fontFamily:'Alibaba',
             fontSize:'1.875rem',// 30px / 16 px
             fontStyle: 'normal',
             fontWeight: 700,
@@ -54,7 +55,7 @@ const theme = createTheme({
             color:'#00394C',
         },
         h4:{
-            fontFamily: 'Morabba',
+            fontFamily: 'Alibaba',
             fontStyle: 'normal',
             fontWeight: 700,
             fontSize: '1.3125rem',//21px

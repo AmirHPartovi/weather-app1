@@ -16,32 +16,55 @@ export default function Home() {
     key: 'muirtl',
     stylisPlugins: [prefixer, rtlPlugin],
   });
+  const [city,setCity]=useState<CityType>(  {
+    id: 358,
+    title: 'تهران',
+    slug: 'Tehran',
+    province_id: 24,
+    latitude: 31.94,
+    longitude: 51.647778
+  })
+  const[cityName,setCityName]=useState<string>('')
   const [latLong , setLatLong]=useState<latLongType>({
   lat :35.7219,
   long :51.3347,
 })
 const citiesName:Array<String>= jsonCities.map((item:CityType)=> {return (item.title)})
 
-const {
-  currentWeather,
-  forecastWeather,
-  isLoading
-} = useWeather(latLong)
+const handleChangeCity = (e:any)=>{
+  e.preventDefault()
+  setCityName(e.target.value)
+  const newCity = jsonCities.filter((item:CityType)=>{item.title===cityName? item : city })
+  setCity(newCity[0])
+  setLatLong({
+    lat:city.latitude,
+    long:city.longitude
+  })
+}
 const{
   latLongTrack,
   handleTrackLocation,
   locationErrorMsg,
   isFindingLocation,
 } = useTrackLocation()
-
-
-const handleLocation=()=>{
+const handleLocation=useCallback(()=>{
   handleTrackLocation()
   setLatLong(latLongTrack)
-}
+},[latLong])
+const {
+  getWeather,
+  currentWeather,
+  forecastWeather,
+  isLoading
+} = useWeather(latLongTrack)
+
+useEffect(()=>{
+  getWeather()
+},[latLong])
 console.log(latLong)
 console.log(currentWeather)
-
+console.log(locationErrorMsg)
+console.log(isFindingLocation)
 
   return (
     <CacheProvider value={cacheRtl}>
@@ -65,14 +88,22 @@ console.log(currentWeather)
         xs={10}
         md={3}>
           <Autocomplete
-          
-          color="primary"
+              
+              color="primary"
               disablePortal
               options={citiesName}
               sx={{
                 width: 300,
                }}
-              renderInput={(params) => <TextField {...params} label="شهرهای ایران" />}
+              renderInput={
+                (params) => 
+                <TextField 
+                     onChange={handleChangeCity}
+                     label="شهرهای ایران" 
+                     value={cityName}
+                     {...params} 
+                />}
+                                        
             />
         </Grid> 
         <Grid

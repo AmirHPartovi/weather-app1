@@ -5,16 +5,16 @@ import {  useState } from "react";
 const useTrackLocation = () => {
   const [locationErrorMsg, setLocationErrorMsg] = useState<string>("");
   const [latLongTrack, setLatLongTrack] = useState<latLongType>({
-    lat:0,
-    long:0
+    lat :35.7219,
+    long :51.3347,
   });
   const [isFindingLocation, setIsFindingLocation] = useState(false);
 
 
-
   const success = (position:any) => {
-    const latitude :number = position.coords.latitude;
-    const longitude:number = position.coords.longitude;
+    console.log('position',position)
+    const latitude :number =  position.coords.latitude;
+    const longitude:number =  position.coords.longitude;
     
 
     setLatLongTrack({
